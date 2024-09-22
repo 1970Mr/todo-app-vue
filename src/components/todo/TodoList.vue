@@ -1,7 +1,7 @@
 <script setup>
-import AddTodo from "@/components/Home/AddTodo.vue"
+import AddTodo from "@/components/todo/AddTodo.vue"
 import ConfirmModal from "@/components/common/ConfirmModal.vue"
-import FilterTodo from "@/components/Home/FilterTodo.vue"
+import FilterTodo from "@/components/todo/FilterTodo.vue"
 import {ref} from "vue"
 
 const todos = ref([])
@@ -121,7 +121,8 @@ function searchTodo() {
           </button>
         </div>
 
-        <div class="flex items-center justify-between bg-white bg-opacity-50 rounded-lg px-4 py-2"
+        <div
+            class="flex items-center justify-between bg-white bg-opacity-50 rounded-lg px-4 py-2"
              v-if="!todoItem.inEdit">
           <span
               class="flex-1 text-gray-800 break-all select-none"
@@ -131,7 +132,6 @@ function searchTodo() {
           </span>
           <div class="flex space-x-2">
             <!-- Edit icon -->
-            <!--  @click="openEditModal(todoItem)" -->
             <button class="text-blue-500 hover:text-blue-700" title="Edit" @click="onEdit(todoItem)">
               <i class="bx bx-edit-alt"></i>
             </button>
