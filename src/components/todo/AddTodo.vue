@@ -1,8 +1,9 @@
 <script setup>
 import { ref, defineEmits } from "vue"
 import { v4 as uuid } from 'uuid'
-const emit = defineEmits(['addTodo'])
+
 const newTodo = ref('')
+const emit = defineEmits(['addTodo'])
 
 function addTodo() {
   if(!newTodo.value.trim()) return
