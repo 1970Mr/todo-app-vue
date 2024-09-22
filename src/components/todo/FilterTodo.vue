@@ -5,10 +5,10 @@
         @change="filterTodo($event.target.value)"
     >
       <option
-          v-for="(filterOption, index) in filterOptions"
+          v-for="(filterType, index) in filterTypes"
           :key="index"
-          :value="filterOption"
-      >{{ filterOption.toUpperCase() }}
+          :value="filterType"
+      >{{ filterType.toUpperCase() }}
       </option>
     </select>
     <div class="absolute right-0 top-[.6rem] flex items-center px-1 pointer-events-none">
@@ -18,12 +18,9 @@
 </template>
 
 <script setup>
-import {defineEmits} from 'vue'
+const filterTypes = ['all', 'active', 'completed']
 
-const emit = defineEmits(['todoList'])
-const filterOptions = ['all', 'active', 'completed']
-
-function filterTodo(filter) {
-  emit('onFilter', filter)
+function filterTodo(filterType) {
+  this.$emit('onFilter', filterType)
 }
 </script>

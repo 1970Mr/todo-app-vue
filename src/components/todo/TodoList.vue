@@ -7,7 +7,7 @@ import {ref} from "vue"
 const todos = ref([])
 const selectedTodo = ref(null)
 const showDeletedModal = ref(false)
-const filterOption = ref('all')
+const filterType = ref('all')
 const searchItem = ref('')
 
 function addTodo(data) {
@@ -51,17 +51,17 @@ function onCancel(todoItem) {
 }
 
 function doFilter(filter) {
-  filterOption.value = filter
+  filterType.value = filter
 }
 
 function filteredTodo() {
   const searchedTodo = searchTodo()
 
-  if (filterOption.value === 'all')
+  if (filterType.value === 'all')
     return searchedTodo
-  if (filterOption.value === 'active')
+  if (filterType.value === 'active')
     return searchedTodo.filter(item => !item.status)
-  if (filterOption.value === 'completed')
+  if (filterType.value === 'completed')
     return searchedTodo.filter(item => item.status)
 }
 
