@@ -6,7 +6,8 @@ const confirmBtn = useTemplateRef('confirmBtn');
 
 defineProps({
   mainMessage: {
-    type: String
+    type: String,
+    required: true
   },
   confirmMessage: {
     type: String,
