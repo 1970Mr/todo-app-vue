@@ -9,7 +9,7 @@ import { storeToRefs } from "pinia";
 const todoStore = useTodoStore();
 const { selectedTodo, showDeletedModal, searchItem, filteredTodos } = storeToRefs(todoStore);
 
-const { addTodo, openDeleteModal, closeDeleteModal, deleteTodo, onUpdate, onEdit, onCancel, doFilter } = todoStore;
+const { addTodo, hideDeleteModal, confirmDeleteTodo, applyFilter } = todoStore;
 </script>
 
 <template>
@@ -28,7 +28,7 @@ const { addTodo, openDeleteModal, closeDeleteModal, deleteTodo, onUpdate, onEdit
           />
         </div>
 
-        <FilterTodo @on-filter="doFilter" />
+        <FilterTodo @on-filter="applyFilter" />
       </div>
 
       <AddTodo @add-todo="addTodo" />
@@ -38,12 +38,6 @@ const { addTodo, openDeleteModal, closeDeleteModal, deleteTodo, onUpdate, onEdit
             v-for="(todoItem, index) in filteredTodos"
             :key="index"
             :todo-item="todoItem"
-            @update-todo="onUpdate"
-            @edit-todo="onEdit"
-            @cancel-edit="onCancel"
-            @delete-todo="openDeleteModal"
-            @toggle-status="todoItem.status = !todoItem.status"
-            @dblclick="todoItem.status = !todoItem.status"
         />
 
         <div v-if="filteredTodos.length === 0">
@@ -55,5 +49,10 @@ const { addTodo, openDeleteModal, closeDeleteModal, deleteTodo, onUpdate, onEdit
     </div>
   </div>
 
-  <ConfirmModal v-if="selectedTodo && showDeletedModal" main-message="Are you sure you want to delete this todo item?" @confirm="deleteTodo" @cancel="closeDeleteModal" />
+  <ConfirmModal
+      v-if="selectedTodo && showDeletedModal"
+      main-message="Are you sure you want to delete this todo item?"
+      @confirm="confirmDeleteTodo"
+      @cancel="hideDeleteModal"
+  />
 </template>

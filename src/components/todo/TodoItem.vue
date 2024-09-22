@@ -1,5 +1,6 @@
 <script setup>
 import { defineProps } from 'vue';
+import {useTodoStore} from "@/stores/todo.js";
 
 const { todoItem } = defineProps({
   todoItem: {
@@ -8,26 +9,12 @@ const { todoItem } = defineProps({
   },
 });
 
-const emit = defineEmits(['update-todo', 'edit-todo', 'delete-todo', 'toggle-status', 'cancel-edit']);
+const todoStore = useTodoStore();
 
-function handleUpdate() {
-  emit('update-todo', todoItem);
-}
-
-function handleEdit() {
-  emit('edit-todo', todoItem);
-}
+const { showDeleteModal, updateTodo, startEditingTodo, cancelEditingTodo, } = todoStore;
 
 function handleCancel() {
-  setTimeout(() => emit('cancel-edit', todoItem), 300)
-}
-
-function handleDelete() {
-  emit('delete-todo', todoItem);
-}
-
-function handleToggleStatus() {
-  emit('toggle-status', todoItem);
+  setTimeout(() => cancelEditingTodo(todoItem), 300)
 }
 </script>
 
@@ -37,28 +24,28 @@ function handleToggleStatus() {
         class="bg-white rounded-l-lg px-4 py-2 w-full focus:outline-none"
         v-model="todoItem.text"
         @blur="handleCancel"
-        @keydown.enter="handleUpdate"
+        @keydown.enter="updateTodo(todoItem)"
     />
-    <button class="text-green-600 bg-white bg-opacity-50 p-2 hover:text-green-500" @click="handleUpdate">
+    <button class="text-green-600 bg-white bg-opacity-50 p-2 hover:text-green-500" @click="updateTodo(todoItem)">
       <i class="bx bx-edit"></i>
     </button>
-    <button class="text-red-500 bg-white bg-opacity-50 p-2 hover:text-red-700 rounded-r-lg" @click="handleCancel">
+    <button class="text-red-500 bg-white bg-opacity-50 p-2 hover:text-red-700 rounded-r-lg" @click="cancelEditingTodo(todoItem)">
       <i class="bx bx-x-circle"></i>
     </button>
   </div>
 
-  <div class="flex items-center bg-white bg-opacity-50 rounded-lg px-4 py-2" v-else>
+  <div class="flex items-center bg-white bg-opacity-50 rounded-lg px-4 py-2" v-else @dblclick="todoItem.status = !todoItem.status">
     <span class="flex-1 text-gray-800 break-all select-none" :class="todoItem.status ? 'line-through' : ''">
-      <span @dblclick.stop="handleEdit">{{ todoItem.text }}</span>
+      <span @dblclick.stop="startEditingTodo(todoItem)">{{ todoItem.text }}</span>
     </span>
     <div class="flex space-x-2">
-      <button class="text-blue-500 hover:text-blue-700" title="Edit" @click="handleEdit">
+      <button class="text-blue-500 hover:text-blue-700" title="Edit" @click="startEditingTodo(todoItem)">
         <i class="bx bx-edit-alt"></i>
       </button>
-      <button class="text-red-500 hover:text-red-700" title="Delete" @click="handleDelete">
+      <button class="text-red-500 hover:text-red-700" title="Delete" @click="showDeleteModal(todoItem)">
         <i class="bx bx-trash"></i>
       </button>
-      <button class="text-green-500 hover:text-green-700" title="Completed" @click="handleToggleStatus">
+      <button class="text-green-500 hover:text-green-700" title="Completed" @click="todoItem.status = !todoItem.status">
         <i class="bx bx-check completed-icon" v-if="!todoItem.status"></i>
         <i class="bx bx-check-double completed-icon" v-if="todoItem.status"></i>
       </button>
