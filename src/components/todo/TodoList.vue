@@ -28,7 +28,7 @@ const { addTodo, hideDeleteModal, confirmDeleteTodo, applyFilter } = todoStore;
           />
         </div>
 
-        <FilterTodo @on-filter="applyFilter" />
+        <FilterTodo @apply-filter="applyFilter" />
       </div>
 
       <AddTodo @add-todo="addTodo" />

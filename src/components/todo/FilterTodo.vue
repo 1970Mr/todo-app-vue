@@ -1,11 +1,17 @@
 <script setup>
 import {defineEmits} from "vue"
+import {useTodoStore} from "@/stores/todo.js";
+import {storeToRefs} from "pinia";
 
-const emit = defineEmits(['onFilter'])
+const todoStore = useTodoStore()
+const { filterType: selectedFilterType } = storeToRefs(todoStore);
+
 const filterTypes = ['all', 'active', 'completed']
 
-function filterTodo(filterType) {
-  emit('onFilter', filterType)
+const emit = defineEmits(['applyFilter'])
+
+function applyFilter(filterType) {
+  emit('applyFilter', filterType)
 }
 </script>
 
@@ -13,12 +19,13 @@ function filterTodo(filterType) {
   <div class="relative inline-block">
     <select
         class="block appearance-none bg-gray-100 border border-gray-200 text-gray-700 py-1 pl-2 pr-6 rounded-lg shadow-sm focus:outline-none focus:bg-white focus:border-gray-500"
-        @change="filterTodo($event.target.value)"
+        @change="applyFilter($event.target.value)"
     >
       <option
           v-for="(filterType, index) in filterTypes"
           :key="index"
           :value="filterType"
+          :selected="selectedFilterType && filterType === selectedFilterType"
       >{{ filterType.toUpperCase() }}
       </option>
     </select>

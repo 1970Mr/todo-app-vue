@@ -94,4 +94,6 @@ export const useTodoStore = defineStore('todoStore', () => {
         cancelEditingTodo,
         applyFilter,
     };
+}, {
+    persist: true,
 });
