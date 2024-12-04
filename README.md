@@ -50,7 +50,7 @@ To run this project locally, follow these steps:
    npm run dev
    ```
 
-5. Open your browser and visit `http://localhost:8080` to view the application.
+5. Open your browser and visit `http://localhost:3000` to view the application.
 
 ### Contributing
 
