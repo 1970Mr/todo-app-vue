@@ -3,13 +3,13 @@ import AddTodo from "@/components/todo/AddTodo.vue";
 import ConfirmModal from "@/components/common/ConfirmModal.vue";
 import FilterTodo from "@/components/todo/FilterTodo.vue";
 import TodoItem from "@/components/todo/TodoItem.vue";
-import { useTodoStore } from "@/stores/todo";
-import { storeToRefs } from "pinia";
+import {useTodoStore} from "@/stores/todo";
+import {storeToRefs} from "pinia";
 
 const todoStore = useTodoStore();
-const { selectedTodo, showDeletedModal, searchItem, filteredTodos } = storeToRefs(todoStore);
+const {selectedTodo, showDeletedModal, searchItem, filteredTodos} = storeToRefs(todoStore);
 
-const { addTodo, hideDeleteModal, confirmDeleteTodo, applyFilter } = todoStore;
+const {addTodo, hideDeleteModal, confirmDeleteTodo, applyFilter} = todoStore;
 </script>
 
 <template>
@@ -28,10 +28,10 @@ const { addTodo, hideDeleteModal, confirmDeleteTodo, applyFilter } = todoStore;
           />
         </div>
 
-        <FilterTodo @apply-filter="applyFilter" />
+        <FilterTodo @apply-filter="applyFilter"/>
       </div>
 
-      <AddTodo @add-todo="addTodo" />
+      <AddTodo @add-todo="addTodo"/>
 
       <div class="space-y-4">
         <TodoItem

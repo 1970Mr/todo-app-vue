@@ -4,7 +4,7 @@ import {useTodoStore} from "@/stores/todo.js";
 import {storeToRefs} from "pinia";
 
 const todoStore = useTodoStore()
-const { filterType: selectedFilterType } = storeToRefs(todoStore);
+const {filterType: selectedFilterType} = storeToRefs(todoStore);
 
 const filterTypes = ['all', 'active', 'completed']
 

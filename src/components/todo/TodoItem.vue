@@ -1,8 +1,8 @@
 <script setup>
-import { defineProps } from 'vue';
+import {defineProps} from 'vue';
 import {useTodoStore} from "@/stores/todo.js";
 
-const { todoItem } = defineProps({
+const {todoItem} = defineProps({
   todoItem: {
     type: Object,
     required: true
@@ -11,7 +11,7 @@ const { todoItem } = defineProps({
 
 const todoStore = useTodoStore();
 
-const { showDeleteModal, updateTodo, startEditingTodo, cancelEditingTodo, } = todoStore;
+const {showDeleteModal, updateTodo, startEditingTodo, cancelEditingTodo,} = todoStore;
 
 function handleCancel() {
   setTimeout(() => cancelEditingTodo(todoItem), 300)
@@ -29,12 +29,14 @@ function handleCancel() {
     <button class="text-green-600 bg-white bg-opacity-50 p-2 hover:text-green-500" @click="updateTodo(todoItem)">
       <i class="bx bx-edit"></i>
     </button>
-    <button class="text-red-500 bg-white bg-opacity-50 p-2 hover:text-red-700 rounded-r-lg" @click="cancelEditingTodo(todoItem)">
+    <button class="text-red-500 bg-white bg-opacity-50 p-2 hover:text-red-700 rounded-r-lg"
+            @click="cancelEditingTodo(todoItem)">
       <i class="bx bx-x-circle"></i>
     </button>
   </div>
 
-  <div class="flex items-center bg-white bg-opacity-50 rounded-lg px-4 py-2" v-else @dblclick="todoItem.status = !todoItem.status">
+  <div class="flex items-center bg-white bg-opacity-50 rounded-lg px-4 py-2" v-else
+       @dblclick="todoItem.status = !todoItem.status">
     <span class="flex-1 text-gray-800 break-all select-none" :class="todoItem.status ? 'line-through' : ''">
       <span @dblclick.stop="startEditingTodo(todoItem)">{{ todoItem.text }}</span>
     </span>
